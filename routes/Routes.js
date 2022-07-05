@@ -5,11 +5,6 @@ const cors = require("cors");
 const multer = require("multer");
 const {
   register,
-  addDepartment,
-  addProgram,
-  addSemester,
-  addSession,
-  addSection,
   extendedRegister,
   addCourse,
 } = require("../Controller/Auth/Register");
