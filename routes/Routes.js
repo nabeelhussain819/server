@@ -7,33 +7,33 @@ const {
   register,
   extendedRegister,
   addCourse,
-} = require("../Controller/Auth/Register");
-const { createCourse, deleteCourse } = require("../Controller/Create/Course");
+} = require("../controller/Auth/Register");
+const { createCourse, deleteCourse } = require("../controller/Create/Course");
 const {
   createDept,
   getDepartment,
   deleteDepartment,
-} = require("../Controller/Create/Department");
+} = require("../controller/Create/Department");
 const {
   createProgram,
   deleteProgram,
-} = require("../Controller/Create/Program");
-const { createSection } = require("../Controller/Create/Section");
-const { createSemes } = require("../Controller/Create/Semester");
+} = require("../controller/Create/Program");
+const { createSection } = require("../controller/Create/Section");
+const { createSemes } = require("../controller/Create/Semester");
 const {
   createSession,
   deleteSession,
-} = require("../Controller/Create/Session");
-const { readCourse, editCourse } = require("../Controller/Index/Course");
-const { readDept, editDepart } = require("../Controller/Index/Department");
-const { readProgram, editProgram } = require("../Controller/Index/Program");
-const { section } = require("../Controller/Index/Section");
-const { readSemes, deleteSemester, editSemester } = require("../Controller/Index/Semester");
-const { session, editSession } = require("../Controller/Index/Session");
-const { student } = require("../Controller/Index/Student");
-const { teacher } = require("../Controller/Index/Teacher");
-const { login } = require("../Controller/Auth/Login");
-const { Commend } = require("../Controller/Create/teacher");
+} = require("../controller/Create/Session");
+const { readCourse, editCourse } = require("../controller/Index/Course");
+const { readDept, editDepart } = require("../controller/Index/Department");
+const { readProgram, editProgram } = require("../controller/Index/Program");
+const { section } = require("../controller/Index/Section");
+const { readSemes, deleteSemester, editSemester } = require("../controller/Index/Semester");
+const { session, editSession } = require("../controller/Index/Session");
+const { student } = require("../controller/Index/Student");
+const { teacher } = require("../controller/Index/Teacher");
+const { login } = require("../controller/Auth/Login");
+const { Commend } = require("../controller/Create/teacher");
 const {
   departComplain,
   teacherComplain,
@@ -46,7 +46,7 @@ const {
   getTechComplain,
   getProgComplain,
   deleteComplains,
-} = require("../Controller/Create/Complain");
+} = require("../controller/Create/Complain");
 const {
   departComment,
   teacherComment,
@@ -57,13 +57,13 @@ const {
   getDeptComment,
   getCourseComment,
   deleteComments,
-} = require("../Controller/Create/Comment");
+} = require("../controller/Create/Comment");
 const { createQec, readQec } = require("../controller/Create/Qec");
 const { createCgpa, readGpa } = require("../controller/Create/Gpa");
 
 var storage = multer.diskStorage({
   destination: function (req, file, callback) {
-    callback(null, "../Controller");
+    callback(null, "../controller");
   },
   filename: function (req, file, callback) {
     callback(null, file.originalname);
