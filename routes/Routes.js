@@ -7,7 +7,7 @@ const {
   register,
   extendedRegister,
   addCourse,
-} = require("../controller/Auth/Register");
+} = require("../controller/auth/Register");
 const { createCourse, deleteCourse } = require("../controller/Create/Course");
 const {
   createDept,
@@ -32,7 +32,7 @@ const { readSemes, deleteSemester, editSemester } = require("../controller/Index
 const { session, editSession } = require("../controller/Index/Session");
 const { student } = require("../controller/Index/Student");
 const { teacher } = require("../controller/Index/Teacher");
-const { login } = require("../controller/Auth/Login");
+const { login } = require("../controller/auth/Login");
 const { Commend } = require("../controller/Create/teacher");
 const {
   departComplain,
