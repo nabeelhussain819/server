@@ -1,6 +1,6 @@
-const qec = require("../../Models/Qec");
-const teacher = require("../../Models/Teacher");
-const course = require("../../Models/Course");
+const qec = require("../../models/Qec");
+const teacher = require("../../models/Teacher");
+const course = require("../../models/Course");
 exports.createQec = async (req, res, next) => {
   try {    
     const data = {

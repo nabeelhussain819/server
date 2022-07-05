@@ -1,5 +1,5 @@
-const cgpa = require("../../Models/Gpa");
-const student = require("../../Models/Student");
+const cgpa = require("../../models/Gpa");
+const student = require("../../models/Student");
 exports.createCgpa = async (req, res) => {
   try {
     const data = {

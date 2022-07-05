@@ -1,4 +1,4 @@
-const Student = require("../../Models/Student");
+const Student = require("../../models/Student");
 
 exports.student = async (req, res, next) => {
   Student.find({})

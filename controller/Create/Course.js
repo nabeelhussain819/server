@@ -1,5 +1,5 @@
-const semester = require("../../Models/Semester");
-const course = require("../../Models/Course");
+const semester = require("../../models/Semester");
+const course = require("../../models/Course");
 
 exports.createCourse = async (req, res) => {
   console.log(req.body);

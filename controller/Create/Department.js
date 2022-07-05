@@ -1,5 +1,5 @@
-const depart = require("../../Models/Department");
-const user = require("../../Models/Student");
+const depart = require("../../models/Department");
+const user = require("../../models/Student");
 exports.createDept = async (req, res, next) => {
   const data = {
     name: req.body.name,

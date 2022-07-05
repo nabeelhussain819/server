@@ -1,4 +1,4 @@
-const Section = require("../../Models/Section");
+const Section = require("../../models/Section");
 
 exports.section = async (req, res) => {
   Section.find({})

@@ -1,4 +1,4 @@
-const semes = require("../../Models/Semester");
+const semes = require("../../models/Semester");
 
 exports.readSemes = async (req, res) => {
   semes

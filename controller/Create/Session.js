@@ -1,5 +1,5 @@
-const sessions = require("../../Models/Session");
-const department = require("../../Models/Department");
+const sessions = require("../../models/Session");
+const department = require("../../models/Department");
 
 exports.createSession = async (req, res) => {
   try {

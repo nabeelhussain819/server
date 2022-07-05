@@ -1,5 +1,5 @@
-const Semes = require("../../Models/Semester");
-const program = require("../../Models/Program");
+const Semes = require("../../models/Semester");
+const program = require("../../models/Program");
 
 exports.createSemes = async (req, res) => {
   try {

@@ -1,6 +1,6 @@
-const depart = require("../../Models/Department");
-const program = require("../../Models/Program");
-const sessions = require("../../Models/Session");
+const depart = require("../../models/Department");
+const program = require("../../models/Program");
+const sessions = require("../../models/Session");
 
 exports.createProgram = async (req, res) => {
   console.log(req.body);

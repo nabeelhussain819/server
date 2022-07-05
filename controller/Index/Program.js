@@ -1,4 +1,4 @@
-const program = require("../../Models/Program");
+const program = require("../../models/Program");
 
 exports.readProgram = async (req, res) => {
   program

@@ -1,8 +1,8 @@
-const complain = require("../../Models/Complain/DepartmentComplain");
-const complain1 = require("../../Models/Complain/CourseComplain");
-const complain2 = require("../../Models/Complain/TeacherComplain");
-const complain3 = require("../../Models/Complain/ProgramComplain");
-const complain4 = require("../../Models/Complain/SemesterComplain");
+const complain = require("../../models/Complain/DepartmentComplain");
+const complain1 = require("../../models/Complain/CourseComplain");
+const complain2 = require("../../models/Complain/TeacherComplain");
+const complain3 = require("../../models/Complain/ProgramComplain");
+const complain4 = require("../../models/Complain/SemesterComplain");
 exports.departComplain = async (req, res, next) => {
   const data = {
     complain: req.body.complain,

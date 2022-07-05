@@ -1,4 +1,4 @@
-const depart = require("../../Models/Department");
+const depart = require("../../models/Department");
 
 exports.readDept = async (req, res, next) => {
   depart

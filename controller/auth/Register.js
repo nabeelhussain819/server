@@ -1,11 +1,11 @@
-const teacher = require("../../Models/Teacher");
-const session = require("../../Models/Session");
-const program = require("../../Models/Program");
-const semester = require("../../Models/Semester");
-const section = require("../../Models/Section");
-const department = require("../../Models/Department");
-const student = require("../../Models/Student");
-const course = require("../../Models/Course");
+const teacher = require("../../models/Teacher");
+const session = require("../../models/Session");
+const program = require("../../models/Program");
+const semester = require("../../models/Semester");
+const section = require("../../models/Section");
+const department = require("../../models/Department");
+const student = require("../../models/Student");
+const course = require("../../models/Course");
 
 exports.register = async (req, res, next) => {
   const { email, password, phone, u_id, name } = req.body;

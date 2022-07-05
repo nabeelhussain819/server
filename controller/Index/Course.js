@@ -1,4 +1,4 @@
-const course = require("../../Models/Course");
+const course = require("../../models/Course");
 
 exports.readCourse = async (req, res) => {
   course

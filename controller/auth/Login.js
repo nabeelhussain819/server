@@ -1,7 +1,7 @@
-const student = require("../../Models/Student");
+const student = require("../../models/Student");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-const teacher = require("../../Models/Teacher");
+const teacher = require("../../models/Teacher");
 
 exports.login = async (req, res) => {
   try {

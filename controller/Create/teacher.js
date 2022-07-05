@@ -1,4 +1,4 @@
-const teacher = require("../../Models/Teacher");
+const teacher = require("../../models/Teacher");
 
 exports.Commend = async (req, res) => {
  

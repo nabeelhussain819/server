@@ -1,8 +1,8 @@
-const Comment = require("../..//Models/Review/DepartmentReview");
-const Comment1 = require("../../Models/Review/CourseReview");
-const Comment2 = require("../../Models/Review/TeacherReview");
-const Comment3 = require("../../Models/Review/SemesterReview");
-const Teacher = require("../../Models/Teacher");
+const Comment = require("../..//models/Review/DepartmentReview");
+const Comment1 = require("../../models/Review/CourseReview");
+const Comment2 = require("../../models/Review/TeacherReview");
+const Comment3 = require("../../models/Review/SemesterReview");
+const Teacher = require("../../models/Teacher");
 exports.departComment = async (req, res, next) => {
   const data = {
     comment: req.body.comment,
