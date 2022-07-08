@@ -32,7 +32,7 @@ const { readSemes, deleteSemester, editSemester } = require("../controller/Index
 const { session, editSession } = require("../controller/Index/Session");
 const { student } = require("../controller/Index/Student");
 const { teacher } = require("../controller/Index/Teacher");
-const { login } = require("../controller/auth/Login");
+const { login, check, forget } = require("../controller/auth/Login");
 const { Commend } = require("../controller/Create/teacher");
 const {
   departComplain,
@@ -84,6 +84,8 @@ app.use(function (req, res, next) {
 // for authentication
 router.route("/signup").post(register);
 router.route("/signin").post(login);
+router.route("/check").post(check);
+router.route("/forget").post(forget);
 router.route("/extendedRegister").post(extendedRegister);
 router.route("/add-course").post(addCourse);
 // getting users data
