@@ -1,30 +1,16 @@
 const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+const { Schema } = require("mongoose");
 
-const SessionSchema = new Schema(
+const ComplainSchema = new mongoose.Schema(
   {
-    name: {
-      type: String,
-      required: true,
-    },
-    description: {
+    issue: {
       type: String,
       required: false,
     },
-    departmentId: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Department",
-        required: false,
-      },
-    ],
-    programId: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Program",
-        required: false,
-      },
-    ],
+    complain: {
+      type: String,
+      required: false,
+    },
     studentId: [
       {
         type: Schema.Types.ObjectId,
@@ -32,17 +18,44 @@ const SessionSchema = new Schema(
         required: false,
       },
     ],
+    departId: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Department",
+        required: false,
+        default:null
+      },
+    ],
+    courseId: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Course",
+        required: false,
+        default:null
+      },
+    ],
+    reply: 
+      {
+        type: String,
+        required: false,
+        default:null
+      },
+    
     teacherId: [
       {
         type: Schema.Types.ObjectId,
         ref: "Teacher",
         required: false,
+        default:null
       },
     ],
   },
   { timestamps: true }
 );
 
-const sessions = mongoose.model("Session", SessionSchema);
+const Complain = mongoose.model(
+  "Complain",
+  ComplainSchema
+);
 
-module.exports = sessions;
+module.exports = Complain;

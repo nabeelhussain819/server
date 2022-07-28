@@ -3,6 +3,7 @@ const course = require("../../models/Course");
 exports.readCourse = async (req, res) => {
   course
     .find({})
+    .populate("semesterId")
     .populate("teacherId")
     .populate("studentId")
     .exec((err, data) => {
@@ -14,9 +15,9 @@ exports.readCourse = async (req, res) => {
 };
 exports.editCourse = async (req, res, next) => {
   const Course = await course.findById({ _id: req.body.id });
-  if(req.body.name =="" || req.body.code == ""){
+  if (req.body.name == "" || req.body.code == "") {
     res.status(400).json({ error: "add all feilds" });
-  }else{
+  } else {
     if (!Course) {
       res.status(400).json({ error: "add all feilds" });
     } else {
@@ -27,8 +28,6 @@ exports.editCourse = async (req, res, next) => {
           res.json(index);
         }
       });
-  
     }
   }
-  
 };

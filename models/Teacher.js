@@ -24,6 +24,11 @@ const TeacherSchema = new mongoose.Schema(
       required: true,
       unique: true,
     },
+    isVerified: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
     password: {
       type: String,
       required: true,
@@ -65,7 +70,8 @@ const TeacherSchema = new mongoose.Schema(
     },
     isQec: [
       {
-        type: String,
+        type: Schema.Types.ObjectId,
+        ref: "Qec",
         required: false,
       },
     ],

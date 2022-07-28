@@ -10,7 +10,7 @@ exports.Commend = async (req, res) => {
       req.body.isFriendly == [] ||
       req.body.isHelpfull == []
     ) {
-      res.status(400).json({ success: false, message: "ooo" });
+      res.status(400).json({ success: false, message: "Give Rating To All Options" });
     } else {
       const Teacher = await teacher.findById({ _id: req.body.teacherId });
     

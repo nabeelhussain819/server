@@ -11,7 +11,7 @@ exports.createCourse = async (req, res) => {
       studentId: req.body.studentId,
       comment: req.body.comment,
       description: req.body.description,
-      code: (Math.random() + 1).toString(36).substring(5),
+      code: req.body.code
     };
     const Course = new course(data);
     await Course.save();

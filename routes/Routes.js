@@ -28,25 +28,17 @@ const { readCourse, editCourse } = require("../controller/Index/Course");
 const { readDept, editDepart } = require("../controller/Index/Department");
 const { readProgram, editProgram } = require("../controller/Index/Program");
 const { section } = require("../controller/Index/Section");
-const { readSemes, deleteSemester, editSemester } = require("../controller/Index/Semester");
+const {
+  readSemes,
+  deleteSemester,
+  editSemester,
+} = require("../controller/Index/Semester");
 const { session, editSession } = require("../controller/Index/Session");
 const { student } = require("../controller/Index/Student");
-const { teacher } = require("../controller/Index/Teacher");
+const { teacher, deleteTeacher } = require("../controller/Index/Teacher");
 const { login, check, forget } = require("../controller/auth/Login");
 const { Commend } = require("../controller/Create/teacher");
-const {
-  departComplain,
-  teacherComplain,
-  courseComplain,
-  programComplain,
-  semesterComplain,
-  getDeptComplain,
-  getSemComplain,
-  getCourseComplain,
-  getTechComplain,
-  getProgComplain,
-  deleteComplains,
-} = require("../controller/Create/Complain");
+const { report, reply, deleteComplains } = require("../controller/Create/Complain");
 const {
   departComment,
   teacherComment,
@@ -58,8 +50,29 @@ const {
   getCourseComment,
   deleteComments,
 } = require("../controller/Create/Comment");
-const { createQec, readQec } = require("../controller/Create/Qec");
+const {
+  createQec,
+  readQec,
+  readMidQec,
+  readFinalQec,
+} = require("../controller/Create/Qec");
 const { createCgpa, readGpa } = require("../controller/Create/Gpa");
+const {
+  AuthUser,
+  AuthQec,
+  AuthTeacher,
+  AuthTeacherStudents,
+  AuthTeacherQec,
+  AuthStudentRating,
+  AuthStudentProgram,
+  AuthStudentSemesterCourse,
+  AuthStudentTeacher,
+  AuthStudentDepartment,
+  AuthNonEvaluateCourse,
+  AuthTeacherComment
+} = require("../controller/SpecificData/AuthUser");
+const { getReport } = require("../controller/Index/Complain");
+const { updateSetting, readSetting } = require("../controller/Create/Setting");
 
 var storage = multer.diskStorage({
   destination: function (req, file, callback) {
@@ -122,17 +135,11 @@ router.route("/create-program").post(createProgram);
 router.route("/create-section").post(createSection);
 router.route("/sections").get(section);
 // for Complain
-router.route("/complain-departments").post(departComplain);
-router.route("/complain-teachers").post(teacherComplain);
-router.route("/complian-courses").post(courseComplain);
-router.route("/complain-programs").post(programComplain);
-router.route("/complain-semesters").post(semesterComplain);
-router.route("/complains-departments").get(getDeptComplain);
-router.route("/complains-semesters").get(getSemComplain);
-router.route("/complains-courses").get(getCourseComplain);
-router.route("/complains-teachers").get(getTechComplain);
-router.route("/complains-programs").get(getProgComplain);
+router.route("/reply").post(reply);
+router.route("/complain").post(report);
 router.route("/delete-complains").post(deleteComplains);
+router.route("/get-complain").get(getReport);
+// router.route("/delete-complains").post(deleteComplains);
 // for Comment
 router.route("/comment-departments").post(departComment);
 router.route("/comment-teachers").post(teacherComment);
@@ -145,8 +152,30 @@ router.route("/comments-teachers").get(getTechComment);
 router.route("/delete-comments").post(deleteComments);
 // for Qec
 router.route("/qec-results").get(readQec);
+router.route("/qec-mid-results").get(readMidQec);
+router.route("/qec-final-results").get(readFinalQec);
 router.route("/qec").post(createQec);
 // for gpa
 router.route("/dd").get(readGpa);
 router.route("/gpaRate").post(createCgpa);
+
+// Specific Data
+router.route("/delete-teachers").post(deleteTeacher);
+router.route("/AuthUser").post(AuthUser);
+router.route("/AuthTeacher").post(AuthTeacher);
+router.route("/AuthQec").post(AuthQec);
+router.route("/AuthTeacherComment").post(AuthTeacherComment);
+router.route("/AuthTeacher").post(AuthTeacher);
+router.route("/AuthStudentRating").post(AuthStudentRating);
+router.route("/AuthTeacherQec").post(AuthTeacherQec);
+router.route("/AuthTeacherStudent").post(AuthTeacherStudents);
+router.route("/AuthStudentProgram").post(AuthStudentProgram);
+router.route("/AuthStudentSemesterCourse").post(AuthStudentSemesterCourse);
+router.route("/AuthStudentTeacher").post(AuthStudentTeacher);
+router.route("/AuthStudentDepartment").post(AuthStudentDepartment);
+router.route("/AuthNonEvaluateCourse").post(AuthNonEvaluateCourse);
+//  Setting
+router.route("/setting").post(updateSetting);
+router.route("/readSetting").get(readSetting);
+// admin
 module.exports = router;

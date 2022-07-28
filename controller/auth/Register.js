@@ -8,76 +8,88 @@ const student = require("../../models/Student");
 const course = require("../../models/Course");
 
 exports.register = async (req, res, next) => {
-  const { email, password, phone, u_id, name } = req.body;
-  const existingUserU = await student.findOne({ u_id: u_id });
-  const existingUser = await student.findOne({ email: email });
-  const existingUserPhone = await teacher.findOne({ phone: phone });
-  const existingUserU1 = await teacher.findOne({ u_id: u_id });
-  const existingUser1 = await teacher.findOne({ email: email });
-  const existingUserPhone1 = await teacher.findOne({ phone: phone });
-  var term = req.body.u_id;
-  var user = new RegExp(/[A-Z]{3,}-[0-9]{2,2}[FS]-[0-9]{3,3}/gm);
-  var re = new RegExp(/[TEC]{3,}-[0-9]{2,2}[FS]-[0-9]{3,3}/gm);
-  var emailRegex = new RegExp(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})$/gm);
-  if (!email || !password || !phone || !u_id || !name) {
-    res.status(400).json({ error: "add all feilds" });
-  } else if (password.length < 5) {
-    return res
-      .status(400)
-      .json({ error: "The password needs to be at least 5 characters long." });
-  } else if (existingUser || existingUser1) {
-    return res
-      .status(400)
-      .json({ error: "An account with this email already exists." });
-  } else if (!emailRegex.test(req.body.email)) {
-    return res.status(400).json({ error: "Invalid email." });
-  } else if (existingUserU || existingUserU1) {
-    return res
-      .status(400)
-      .json({ error: "An account with this University Id already exists." });
-  } else if (existingUserPhone ||existingUserPhone1) {
-    return res
-      .status(400)
-      .json({ error: "An account with this Phone Number already exists." });
-  } else if (re.test(term)) {
-    const data = {
-      name: req.body.name,
-      email: req.body.email,
-      password: req.body.password,
-      u_id: req.body.u_id,
-      phone: req.body.phone,
-      isTeacher: true,
-    };
-    const Teacher = new teacher(data);
-    await Teacher.save();
-    res.status(200).json(Teacher);
-  } else if (user.test(term)) {
-
+  try{
+    const { email, password, phone, u_id, name } = req.body;
+    const existingUserU = await student.findOne({ u_id: u_id });
+    const existingUser = await student.findOne({ email: email });
+    const existingUserPhone = await teacher.findOne({ phone: phone });
+    const existingUserU1 = await teacher.findOne({ u_id: u_id });
+    const existingUser1 = await teacher.findOne({ email: email });
+    const existingUserPhone1 = await teacher.findOne({ phone: phone });
+    var term = req.body.u_id;
+    var user = new RegExp(/[A-Z]{3,}-[0-9]{2,2}[FS]-[0-9]{3,3}/gm);
+    var re = new RegExp(/[TEC]{3,}-[0-9]{2,2}[FS]-[0-9]{3,3}/gm);
+    var emailRegex = new RegExp(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})$/gm);
+    if (!email || !password || !phone || !u_id || !name) {
+      res.status(400).json({ error: "add all feilds" });
+    } else if (password.length < 5) {
+      return res
+        .status(400)
+        .json({ error: "The password needs to be at least 5 characters long." });
+    } else if (existingUser || existingUser1) {
+      return res
+        .status(400)
+        .json({ error: "An account with this email already exists." });
+    } else if (!emailRegex.test(req.body.email)) {
+      return res.status(400).json({ error: "Invalid email." });
+    } else if (existingUserU || existingUserU1) {
+      return res
+        .status(400)
+        .json({ error: "An account with this University Id already exists." });
+    } else if (existingUserPhone || existingUserPhone1) {
+      return res
+        .status(400)
+        .json({ error: "An account with this Phone Number already exists." });
+    } else if (re.test(term)) {
+      const data = {
+        name: req.body.name,
+        email: req.body.email,
+        password: req.body.password,
+        u_id: req.body.u_id,
+        phone: req.body.phone,
+        isTeacher: true,
+      };
+      const Teacher = new teacher(data);
+      await Teacher.save();
+      res.status(200).json(Teacher);
+    } else if (user.test(term)) {
+  
       const Student = new student(req.body);
       await Student.save();
-   
-
+  
+  
       res.status(200).json(Student);
-   
-  } else {
-    return res.status(400).json({ error: "ID isnot valid" });
+  
+    } else {
+      return res.status(400).json({ error: "ID isnot valid" });
+    }
+  }catch(error){
+next(error)
   }
+ 
 };
 exports.extendedRegister = async (req, res, next) => {
 
-  const { deptId, studentId, teacherId,programId,semesterId,sessionId } = req.body;
+  const { deptId, studentId, teacherId, programId, semesterId, sessionId } = req.body;
   console.log(req.body)
-  if (!deptId  || !programId||!sessionId ) {
+  if (!deptId || !programId || !sessionId) {
     console.log(req.body)
     return res
       .status(400)
       .json({ error: "Add All Feilds" });
   } else {
-    
+
     if (teacherId) {
 
       const Teacher = await teacher.findById({ _id: teacherId });
       Teacher.deptId.push(req.body.deptId);
+      Teacher.updateOne({ isVerified: true }, (error, index) => {
+        if (error) {
+          return next(error);
+        } else {
+          res.json(index);
+        }
+      });
       await Teacher.save();
 
       const Depart = await department.findById({ _id: deptId });
@@ -99,20 +111,27 @@ exports.extendedRegister = async (req, res, next) => {
     } else {
       const Student = await student.findById({ _id: req.body.studentId });
       Student.deptId.push(req.body.deptId);
+      Student.updateOne({ isVerified: true }, (error, index) => {
+        if (error) {
+          return next(error);
+        } else {
+          res.json(index);
+        }
+      });
       await Student.save();
 
       const Depart = await department.findById({ _id: deptId });
       Depart.studentId.push(req.body.studentId);
       await Depart.save();
 
-    
+
       Student.programId.push(programId);
       await Student.save();
 
       const Program = await program.findById({ _id: programId });
       Program.studentId.push(req.body.studentId);
       await Program.save();
-     
+
       Student.semesterId.push(semesterId);
       await Student.save();
 
@@ -136,25 +155,44 @@ exports.addCourse = async (req, res, next) => {
       .status(400)
       .json({ error: "An account with this email already exists." });
   } else {
-   
+
     if (teacherId) {
       const Teacher = await teacher.findById({ _id: teacherId });
-      Teacher.courseId.push(req.body.courseId);
-      await Teacher.save();
 
-      const Course = await course.findById({ _id: courseId });
-      Course.teacherId.push(teacherId);
-      await Course.save();
+      if (Teacher.courseId.includes(req.body.courseId)) {
+        return res
+          .status(400)
+          .json({ error: "Already Enrolled In This Course" });
+      } else {
+        Teacher.courseId.push(req.body.courseId);
+        await Teacher.save();
+
+        const Course = await course.findById({ _id: courseId });
+        Course.teacherId.push(teacherId);
+        await Course.save();
+        res.status(200).json({ courseId });
+      }
+
     } else {
-      const Student = await student.findById({ _id: studentId });
-      Student.courseId.push(req.body.courseId);
-      await Student.save();
 
-      const Course = await course.findById({ _id: courseId });
-      Course.studentId.push(studentId);
-      await Course.save();
+      const Student = await student.findById({ _id: studentId });
+
+      if (Student.courseId.includes(req.body.courseId)) {
+        return res
+          .status(400)
+          .json({ error: "Already Enrolled In This Course" });
+      } else {
+        Student.courseId.push(req.body.courseId);
+        await Student.save();
+
+        const Course = await course.findById({ _id: courseId });
+        Course.studentId.push(studentId);
+        await Course.save();
+        res.status(200).json({ courseId });
+      }
+
     }
-    res.status(200).json({ message: "registerd" });
+
   }
 };
 exports.addSemester = async (req, res, next) => {

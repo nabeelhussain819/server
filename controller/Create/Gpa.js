@@ -3,16 +3,16 @@ const student = require("../../models/Student");
 exports.createCgpa = async (req, res) => {
   try {
     const data = {
-      Rate: req.body.gpa,
+      rating: req.body.rating,
       studentId: req.body.studentId,
       teacherId: req.body.teacherId,
 
     };
     const Cgpa = await new cgpa(data);
     await Cgpa.save();
+
     const Student = await student.findById({ _id: req.body.studentId });
-    Student.rating.push(req.body.rating)
-    Student.cgpaRate.push(req.body.Rate)
+    Student.Rate.push(Cgpa._id)
     await Student.save();
     res.status(200).json({ success: true });
   } catch (err) {

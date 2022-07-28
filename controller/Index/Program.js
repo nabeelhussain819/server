@@ -17,9 +17,9 @@ exports.readProgram = async (req, res) => {
 };
 exports.editProgram = async (req, res, next) => {
   const Program = await program.findById({ _id: req.body.id });
-  if(req.body.name =="" ){
+  if (req.body.name == "") {
     res.status(400).json({ error: "add all feilds" });
-  }else{
+  } else {
     if (!Program) {
       res.status(400).json({ error: "add all feilds" });
     } else {
@@ -30,8 +30,8 @@ exports.editProgram = async (req, res, next) => {
           res.json(index);
         }
       });
-  
+
     }
   }
-  
+
 };

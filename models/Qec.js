@@ -7,12 +7,10 @@ const QecSchema = new Schema(
       type: String,
       required: true,
     },
-    rating: [
-      {
+    rating:{
         type: Number,
         required: false,
-      },
-    ],   
+      },   
     studentId: [
       {
         type: Schema.Types.ObjectId,

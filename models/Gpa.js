@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const GPASchema = new Schema(
   {
-    Rate: {
+    rating: {
       type: Number,
       required: true,
     },

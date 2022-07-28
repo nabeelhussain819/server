@@ -8,6 +8,7 @@ exports.student = async (req, res, next) => {
     .populate("sessionId")
     .populate("semesterId")
     .populate("programId")
+    .populate("qec")
     .exec((err, data) => {
       if (err) {
         throw err;

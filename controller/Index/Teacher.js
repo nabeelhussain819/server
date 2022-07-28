@@ -6,7 +6,7 @@ exports.teacher = async (req, res, next) => {
     .populate({
       path: "deptId",
     })
-    
+
     .populate("programId")
     .populate("courseId")
     .exec((err, data) => {
@@ -15,4 +15,13 @@ exports.teacher = async (req, res, next) => {
       }
       res.json(data);
     });
+};
+exports.deleteTeacher = async (req, res, next) => {
+  const Course = await teacher.findById({ _id: req.body.id });
+  if (!Course) {
+    res.status(400).json({ error: "add all feilds" });
+  } else {
+    Course.delete();
+    res.status(200).json({ message: "Done" });
+  }
 };

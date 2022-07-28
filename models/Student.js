@@ -24,17 +24,51 @@ const StudentSchema = new mongoose.Schema(
       required: true,
       unique: true,
     },
+    isVerified: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
     password: {
       type: String,
       required: true,
     },
-    comment: [
+    DepartmentComment: [
       {
-        type: String,
+        type: Schema.Types.ObjectId,
+        ref: "DepartmentComment",
         required: false,
       },
     ],
-    cgpaRate: [
+    SemesterComment: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "SemesterComment",
+        required: false,
+      },
+    ],
+    CourseComment: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "CourseComment",
+        required: false,
+      },
+    ],
+    TeacherComment: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "TeacherComment",
+        required: false,
+      },
+    ],
+    qec: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Qec",
+        required: false,
+      },
+    ],
+    Rate: [
       {
         type: Schema.Types.ObjectId,
         ref: "GPA",
@@ -59,12 +93,6 @@ const StudentSchema = new mongoose.Schema(
       {
         type: Schema.Types.ObjectId,
         ref: "Course",
-        required: false,
-      },
-    ],
-    rating: [
-      {
-        type: Number,
         required: false,
       },
     ],
