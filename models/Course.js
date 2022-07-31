@@ -23,8 +23,9 @@ const CourseSchema = new mongoose.Schema(
     },
     isCourse: [
       {
-        type: String,
-        required: false,
+        type: Schema.Types.ObjectId,
+        ref: "Qec",
+        required: true,
       },
     ],
     comment: [

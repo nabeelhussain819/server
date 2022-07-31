@@ -9,8 +9,20 @@ const QecSchema = new Schema(
     },
     rating:{
         type: Number,
-        required: false,
-      },   
+        required: true,
+      },
+      description:{
+        type: String,
+        required: true,
+      }, 
+      star:{
+        type: Number,
+        required: true,
+      }, 
+      grade:{
+        type: String,
+        required: true,
+      },    
     studentId: [
       {
         type: Schema.Types.ObjectId,

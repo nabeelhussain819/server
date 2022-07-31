@@ -139,22 +139,7 @@ exports.AuthStudentSemesterCourse = async (req, res, next) => {
   }
 
 };
-exports.AuthStudentTeacher = async (req, res, next) => {
-  if (!req.body.id) {
-    res.status(400).json({ error: "add all feilds" });
-  } else {
-    const course = await Course.find({ studentId: req.body.id })
-      .populate("teacherId")
-      .populate("studentId")
-      .exec((err, data) => {
-        if (err) {
-          throw err;
-        }
-        res.json(data);
-      });
-  }
 
-};
 exports.AuthStudentDepartment = async (req, res, next) => {
   if (!req.body.id) {
     res.status(400).json({ error: "add all feilds" });
@@ -172,15 +157,13 @@ exports.AuthStudentDepartment = async (req, res, next) => {
         res.json(data);
       });
   }
-
 };
-
 exports.AuthNonEvaluateCourse = async (req, res, next) => {
   if (!req.body.id) {
     res.status(400).json({ error: "add all feilds" });
   } else {
+    const qec = await Qec.find({studentId :req.body.id })    
     const course = await Course.find({ isCourse: req.body.id })
-
       .populate("teacherId")
       .populate("studentId")
       .exec((err, data) => {
@@ -191,4 +174,62 @@ exports.AuthNonEvaluateCourse = async (req, res, next) => {
       });
   }
 
+};
+exports.AuthEvaluateCourse = async (req, res, next) => {
+  if (!req.body.id) {
+    res.status(400).json({ error: "add all feilds" });
+  } else {
+    const qec = await Qec.find({studentId :req.body.id }) 
+    .populate("studentId")
+    .populate("teacherId")
+    .populate("courseId")
+    .exec((err, data) => {
+      if (err) {
+        throw err;
+      }
+      res.json(data);
+    });   
+
+  }
+
+};
+exports.AuthStudentTeacher = async (req, res, next) => {
+  if (!req.body.id) {
+    res.status(400).json({ error: "add all feilds" });
+  } else {
+    const course = await Course.find({ studentId: req.body.id })
+      .populate("teacherId")
+      .populate("studentId")
+      .populate("isCourse")
+      .exec((err, data) => {
+        if (err) {
+          throw err;
+        }
+        res.json(data);
+      });
+  }
+};
+exports.CheckEvaluatedCourse = async (req, res, next) => {
+  if (!req.body.courseId || !req.body.term) {
+    res.status(400).json({ error: "add all feilds" });
+  } 
+  console.log(req.body.courseId,req.body.term)
+  const qec = await Qec.find({courseId :req.body.courseId })
+
+   const answer = qec.filter((data)=>data.term.includes(req.body.term))
+ 
+  if(answer.length == 0){
+    const course = await Course.find({ _id: req.body.courseId })
+    .populate("teacherId")
+    .populate("studentId")
+    .populate("isCourse")
+    .exec((err, data) => {
+      if (err) {
+        throw err;
+      }
+      res.status(200).json(data); 
+    });
+  }else{
+    res.status(400).json({ error: "You Already Evaluated This Course" });
+  }
 };
