@@ -7,6 +7,17 @@ const GPASchema = new Schema(
       type: Number,
       required: true,
     },
+    term: {
+      type: String,
+      required: true,
+    },
+    courseId: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Course",
+        required: false,
+      },
+    ],
     studentId: [
       {
         type: Schema.Types.ObjectId,

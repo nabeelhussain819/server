@@ -70,7 +70,7 @@ const {
   AuthStudentDepartment,
   AuthNonEvaluateCourse,
   AuthEvaluateCourse,
-  AuthTeacherComment,CheckEvaluatedCourse
+  AuthTeacherComment,CheckEvaluatedCourse,TeacherCheckEvaluatedCourse,CourseById,AuthStudentRating1
 } = require("../controller/SpecificData/AuthUser");
 const { getReport } = require("../controller/Index/Complain");
 const { updateSetting, readSetting } = require("../controller/Create/Setting");
@@ -177,6 +177,10 @@ router.route("/AuthStudentDepartment").post(AuthStudentDepartment);
 router.route("/AuthNonEvaluateCourse").post(AuthNonEvaluateCourse);
 router.route("/AuthEvaluateCourse").post(AuthEvaluateCourse);
 router.route("/CheckEvaluatedCourse").post(CheckEvaluatedCourse);
+router.route("/TeacherCheckEvaluatedCourse").post(TeacherCheckEvaluatedCourse);
+router.route("/AuthStudentRating1").get(AuthStudentRating1);
+
+router.route("/CourseById").post(CourseById);
 //  Setting
 router.route("/setting").post(updateSetting);
 router.route("/readSetting").get(readSetting);

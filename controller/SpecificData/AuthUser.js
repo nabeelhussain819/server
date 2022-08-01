@@ -89,6 +89,7 @@ exports.AuthTeacherStudents = async (req, res, next) => {
   const course = await Course.find({ teacherId: req.body.id })
     .populate("teacherId")
     .populate("studentId")
+    
     .exec((err, data) => {
       if (err) {
         throw err;
@@ -100,6 +101,19 @@ exports.AuthStudentRating = async (req, res, next) => {
   const gpa = await GPA.find({ studentId: req.body.id })
     .populate("teacherId")
     .populate("studentId")
+    .populate("courseId")
+    .exec((err, data) => {
+      if (err) {
+        throw err;
+      }
+      res.json(data);
+    });
+};
+exports.AuthStudentRating1 = async (req, res, next) => {
+  const gpa = await GPA.find({  })
+    .populate("teacherId")
+    .populate("studentId")
+    .populate("courseId")
     .exec((err, data) => {
       if (err) {
         throw err;
@@ -231,5 +245,44 @@ exports.CheckEvaluatedCourse = async (req, res, next) => {
     });
   }else{
     res.status(400).json({ error: "You Already Evaluated This Course" });
+  }
+};
+exports.TeacherCheckEvaluatedCourse = async (req, res, next) => {
+  if (!req.body.studentId || !req.body.term) {
+    res.status(400).json({ error: "add all feilds" });
+  } 
+
+   const gpa = await GPA.find({studentId :req.body.studentId })
+   const answer = gpa.filter((data)=>data.term.includes(req.body.term)) 
+
+  if(answer.length == 0){
+    const course = await Course.find({ _id: req.body.courseId })
+    .populate("teacherId")
+    .populate("studentId")
+    .populate("isCourse")
+    .exec((err, data) => {
+      if (err) {
+        throw err;
+      }
+      res.status(200).json(data); 
+    });
+  }else{
+    res.status(400).json({ error: "You Already Evaluated This Course" });
+  }
+};
+exports.CourseById = async (req, res, next) => {
+  if (!req.body.id) {
+    res.status(400).json({ error: "add all feilds" });
+  } else {
+    const course = await Course.find({ _id: req.body.id })
+      .populate("teacherId")
+      .populate("studentId")
+      .populate("isCourse")
+      .exec((err, data) => {
+        if (err) {
+          throw err;
+        }
+        res.json(data);
+      });
   }
 };

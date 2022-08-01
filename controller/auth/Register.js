@@ -64,7 +64,7 @@ exports.register = async (req, res, next) => {
       return res.status(400).json({ error: "ID isnot valid" });
     }
   }catch(error){
-next(error)
+    return next(error);
   }
  
 };
@@ -114,8 +114,6 @@ exports.extendedRegister = async (req, res, next) => {
       Student.updateOne({ isVerified: true }, (error, index) => {
         if (error) {
           return next(error);
-        } else {
-          res.json(index);
         }
       });
       await Student.save();

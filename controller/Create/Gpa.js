@@ -3,9 +3,14 @@ const student = require("../../models/Student");
 exports.createCgpa = async (req, res) => {
   try {
     const data = {
-      rating: req.body.rating,
+      term: req.body.term,
       studentId: req.body.studentId,
+      courseId: req.body.courseId,
       teacherId: req.body.teacherId,
+      rating: req.body.rating,
+      star: req.body.starR,
+      description: req.body.des,
+      grade: req.body.category,
 
     };
     const Cgpa = await new cgpa(data);
