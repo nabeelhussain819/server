@@ -8,7 +8,9 @@ const connectDB = require("./config/DataBase");
 dotenv.config();
 connectDB();
 const cors = require("cors");
+app.use(express.json());
 
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -17,8 +19,8 @@ app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
   next();
 });
-app.use(express.json());
 app.use(require("./routes/Routes"));
+
 app.get("/", (req, res) => {
   res.json("hello world");
 });

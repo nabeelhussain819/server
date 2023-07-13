@@ -74,16 +74,10 @@ const {
 } = require("../controller/SpecificData/AuthUser");
 const { getReport } = require("../controller/Index/Complain");
 const { updateSetting, readSetting } = require("../controller/Create/Setting");
+const { uploadImg } = require("../helper/uploadFile");
 
-var storage = multer.diskStorage({
-  destination: function (req, file, callback) {
-    callback(null, "../controller");
-  },
-  filename: function (req, file, callback) {
-    callback(null, file.originalname);
-  },
-});
-var upload = multer({ storage: storage });
+
+
 app.use(cors());
 app.use(express.json());
 app.use(function (req, res, next) {
@@ -112,7 +106,7 @@ router.route("/create-session").post(createSession);
 router.route("/edit-sessions").post(editSession);
 router.route("/delete-sessions").post(deleteSession);
 //for department
-router.route("/create-department").post(createDept);
+router.route("/create-department").post(uploadImg.single("fileName"),createDept);
 router.route("/delete-departments").post(deleteDepartment);
 router.route("/edit-departments").post(editDepart);
 router.route("/departments").get(readDept);

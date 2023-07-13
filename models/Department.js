@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 const { Schema } = require("mongoose");
-
 const DepartmentSchema = new mongoose.Schema(
   {
     name: {
@@ -14,6 +13,13 @@ const DepartmentSchema = new mongoose.Schema(
     code: {
       type: String,
       required: true,
+    },
+    fileName: {
+      type: String,
+      required: true,
+    //   get: (image) => { 
+    //     return `${process.env.APP_URL}/${image}`;
+    // },
     },
     sessionId: [
       {
