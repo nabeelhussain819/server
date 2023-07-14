@@ -75,6 +75,7 @@ const {
 const { getReport } = require("../controller/Index/Complain");
 const { updateSetting, readSetting } = require("../controller/Create/Setting");
 const { uploadImg } = require("../helper/uploadFile");
+const {   validateUser } = require("../validations/depatmentSchema");
 
 
 
@@ -106,7 +107,7 @@ router.route("/create-session").post(createSession);
 router.route("/edit-sessions").post(editSession);
 router.route("/delete-sessions").post(deleteSession);
 //for department
-router.route("/create-department").post(uploadImg.single("fileName"),createDept);
+router.route("/create-department").post(uploadImg.single("fileName"),validateUser,createDept);
 router.route("/delete-departments").post(deleteDepartment);
 router.route("/edit-departments").post(editDepart);
 router.route("/departments").get(readDept);
